@@ -1,0 +1,10 @@
+type Foo {
+    name: string,
+    count: int,
+    price: decimal,
+    is_active: bool
+}
+
+type Bar {
+    foo: Foo
+}
