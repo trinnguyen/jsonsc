@@ -42,16 +42,20 @@ class Lexer {
             }
 
             // check if identifier
-            if c.isLetterOrUnderscore {
+            if c.isLetter {
                 var id = "\(c)"
                 while true {
-                    guard let nextC = peekChar(), nextC.isLetterOrUnderscore else {
+                    guard let nextC = peekChar(), nextC.isValidIdChar else {
                         break
                     }
                     id.append(nextC)
 
                     // advance index
                     _ = nextChar()
+                }
+
+                if let keyword = scanKeyword(id) {
+                    return Token(tokType: keyword, loc: loc)
                 }
 
                 // summary id
@@ -71,6 +75,25 @@ class Lexer {
             default:
                 return Token(tokType: .Identifier(String(c)), loc: loc)
             }
+        }
+    }
+
+    private func scanKeyword(_ id: String) -> TokType? {
+        switch id {
+        case "type":
+            return TokType.KwType;
+        case "int":
+            return TokType.KwInt;
+        case "string":
+            return TokType.KwString;
+        case "bool":
+            return TokType.KwBool;
+        case "float":
+            return TokType.KwFloat;
+        case "double":
+            return TokType.KwDouble;
+        default:
+            return nil
         }
     }
 
@@ -109,7 +132,7 @@ class Lexer {
 }
 
 extension Character {
-    var isLetterOrUnderscore: Bool {
-        isLetter || self == "_"
+    var isValidIdChar: Bool {
+        isLetter || isNumber || self == "_"
     }
 }

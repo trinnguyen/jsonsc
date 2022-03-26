@@ -1,10 +1,11 @@
 type Foo {
     name: string,
-    count: int,
-    price: decimal,
     is_active: bool
 }
 
 type Bar {
-    foo: Foo
+    foo: Foo,
+    f1: float,
+    d_2: double,
+    count: int
 }
