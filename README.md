@@ -35,3 +35,10 @@ OPTIONS:
 ```
 
 - Execute: `jsonsc hello.jsons`
+
+
+## Build
+- Build debug `swift build`
+- Run debug: `swift run`
+- Run tests: `swift tests`
+- Build release: `swift build -c release`
