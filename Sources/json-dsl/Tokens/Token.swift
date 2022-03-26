@@ -1,6 +1,6 @@
 import Foundation
 
-struct Token {
+struct Token: Equatable {
     let tokType: TokType
     let loc: Location
 }

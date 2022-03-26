@@ -1,6 +1,6 @@
 import Foundation
 
-struct Location {
+struct Location: Equatable {
     let line: Int
     let col: Int
 }

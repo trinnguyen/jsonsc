@@ -14,31 +14,21 @@ class Lexer {
 
     /// Init lexer with source code
     /// - Parameter src: source content
-    init(src: String) {
+    init(_ src: String) {
         self.src = src
         self.endIndex = self.src.endIndex
     }
 
-    func nextTok() -> Token {
+    func nextTok() throws -> Token {
         let loc = getLoc()
         switch nextChar() {
         case .none:
             return Token(tokType: .Eof, loc: getLoc())
         case .some(let c):
 
-            // advance col
-            col = col + 1
-
-            // advance if newline
-            if c.isNewline {
-                line = line + 1
-                col = 1
-                return nextTok()
-            }
-
-            // advance if whitespace
+            // advanced if whitespace (include newlines)
             if c.isWhitespace {
-                return nextTok()
+                return try nextTok()
             }
 
             // check if identifier
@@ -73,7 +63,7 @@ class Lexer {
             case ",":
                 return Token(tokType: .Comma, loc: loc)
             default:
-                return Token(tokType: .Identifier(String(c)), loc: loc)
+                throw GeneralError.lexerUnexpectedChar(ch: c, loc: loc)
             }
         }
     }
@@ -114,6 +104,13 @@ class Lexer {
     private func nextChar() -> Character? {
         guard let c = peekChar() else {
             return nil
+        }
+
+        // increase col and line if needed
+        col = col + 1
+        if c.isNewline {
+            line = line + 1
+            col = 1
         }
 
         // advanced
