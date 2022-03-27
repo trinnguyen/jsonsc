@@ -12,15 +12,23 @@ struct Driver {
     }
 
     func runContent(_ src: String) throws {
-        // part 1: run lexer
-        print("Start lexer")
+        // Step 1: Lexer
+        print("Step 1: Start lexer")
         let lexer = Lexer(src)
-        var tok: Token
-        repeat {
-            tok = try lexer.nextTok()
+        var tokens: [Token] = []
+        while true {
+            let tok = try lexer.nextTok()
+            if tok.tokType == TokType.Eof {
+                break
+            }
+            tokens.append(tok)
+        }
 
-            // print tok
-            print(tok)
-        } while (tok.tokType != TokType.Eof)
+        // Step 2: Parser
+        print(tokens)
+        print("Step 2: Start parser")
+        let parser = Parser(tokens)
+        let ast = try parser.parse()
+        print(ast)
     }
 }
