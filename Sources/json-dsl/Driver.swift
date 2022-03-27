@@ -15,14 +15,7 @@ struct Driver {
         // Step 1: Lexer
         print("Step 1: Start lexer")
         let lexer = Lexer(src)
-        var tokens: [Token] = []
-        while true {
-            let tok = try lexer.nextTok()
-            if tok.tokType == TokType.Eof {
-                break
-            }
-            tokens.append(tok)
-        }
+        let tokens = try lexer.scanToEnd()
 
         // Step 2: Parser
         print(tokens)

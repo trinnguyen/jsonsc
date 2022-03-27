@@ -49,7 +49,7 @@ struct Id: AstNode, CustomStringConvertible {
     }
 }
 
-enum PropTypeEnum {
+enum PropTypeEnum: Equatable {
     case RefDecl(_ name: String)
     case String
     case Bool

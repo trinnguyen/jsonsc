@@ -68,6 +68,19 @@ class Lexer {
         }
     }
 
+    func scanToEnd() throws -> [Token] {
+        var tokens: [Token] = []
+        while true {
+            let tok = try nextTok()
+            if tok.tokType == TokType.Eof {
+                break
+            }
+            tokens.append(tok)
+        }
+
+        return tokens
+    }
+
     private func scanKeyword(_ id: String) -> TokType? {
         switch id {
         case "type":

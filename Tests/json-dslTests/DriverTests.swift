@@ -4,8 +4,13 @@ import Foundation
 @testable import json_dsl
 
 class DriverTests: XCTestCase {
-    func testRun() throws {
+    func testRunSuccess() throws {
         let d = Driver()
-        try d.runContent("typ {}")
+        try d.runContent("type Custom { id: string, ctx_1: int }")
+    }
+
+    func testRunFailed() throws {
+        let d = Driver()
+        XCTAssertThrowsError(try d.runContent("type Custom { id: string, ctx_1: int,  }"))
     }
 }
