@@ -1,6 +1,6 @@
 import XCTest
 import Foundation
-@testable import json_dsl
+@testable import jsonsc
 
 class ParserTests: XCTestCase {
     func testParseOneType() throws {

@@ -1,7 +1,7 @@
 import XCTest
 import Foundation
 
-@testable import json_dsl
+@testable import jsonsc
 
 class DriverTests: XCTestCase {
     func testRunSuccess() throws {
