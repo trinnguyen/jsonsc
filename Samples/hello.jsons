@@ -1,11 +1,11 @@
-type Foo {
-    name: string,
-    is_active: bool
-}
-
 type Bar {
     foo: Foo,
     f1: float,
     d_2: double,
     count: int
+}
+
+type Foo {
+    name: string,
+    is_active: bool
 }

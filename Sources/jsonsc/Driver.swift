@@ -8,6 +8,10 @@ struct Driver {
     }
 
     func runContent(_ src: String) throws {
+        try runContent(src, output: CompositeOutput([ConsoleOutput(), FileOutput(".output")]))
+    }
+
+    func runContent(_ src: String, output: OutputProtocol) throws {
         // Step 1: Lexer
         print("-- Step 1: Start lexer")
         let lexer = Lexer(src)
@@ -33,7 +37,7 @@ struct Driver {
         print(module)
 
         // Step 5: Generate
-        let generator = Generator(module, writer: CompositeOutput([ConsoleOutput(), FileOutput(".output")]))
+        let generator = Generator(module, writer: output)
         generator.generate()
     }
 }
